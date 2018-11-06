@@ -45,20 +45,17 @@ public:
 	};
 };
 
-void mem_allo(gry **&tab, const int ile);
+void mem_allo(gry *&tab, const int ile);
 void mem_allo(tworca ***tab, const int ile);
-void baza(gry **&tab, const int ile);
+void baza(gry *&tab, const int ile);
 void baza(tworca ***tab, const int ile);
-void wyswietlanie(gry **&tab, const int ile);
+void wyswietlanie(gry *&tab, const int ile);
 void wyswietlanie(tworca ***tab, const int ile);
-void mem_re(gry **&tab);
+void mem_re(gry *&tab);
 void mem_re(tworca ***tab);
 
-void mem_allo(gry **&tab, const int ile) {
-	tab = (gry**)malloc(ile * sizeof(struct gry*));
-	for (int i = 0; i<ile; i++) {
-		tab[i] = (struct gry*)malloc(ile * sizeof(struct gry));
-	}
+void mem_allo(gry *&tab, const int ile) {
+	tab = (gry*)malloc(ile * sizeof(struct gry));
 }
 
 void mem_allo(tworca ***tab, const int ile) {
@@ -68,9 +65,9 @@ void mem_allo(tworca ***tab, const int ile) {
 	}
 }
 
-void baza(gry **&tab, const int ile) {
+void baza(gry *&tab, const int ile) {
 	for (int i = 0; i<ile; i++) {
-		tab[i]->zapis_gry();
+		tab[i].zapis_gry();
 	}
 }
 
@@ -80,9 +77,9 @@ void baza(tworca ***tab, const int ile) {
 	}
 }
 
-void wyswietlanie(gry **&tab, const int ile) {
+void wyswietlanie(gry *&tab, const int ile) {
 	for (int i = 0; i<ile; i++) {
-		tab[i]->odczyt_gry();
+		tab[i].odczyt_gry();
 	}
 }
 
@@ -92,15 +89,15 @@ void wyswietlanie(tworca ***tab, const int ile) {
 	}
 }
 
-void mem_re(gry **&tab) {
-	free(*tab);
+void mem_re(gry *&tab) {
+	free(tab);
 }
 
 void mem_re(tworca ***tab) {
 	free(**tab);
 }
 
-void menu(gry **tab_gry, tworca **tab_tworca) {
+void menu(gry *tab_gry, tworca **tab_tworca) {
 	int wyb, ile_gier, ile_tworcow;
 	do
 	{
@@ -167,11 +164,12 @@ void menu(gry **tab_gry, tworca **tab_tworca) {
 
 int main()
 {
-	gry **tab_gry = NULL;
+	gry *tab_gry = NULL;
 	tworca **tab_tworca = NULL;
 	menu(tab_gry, tab_tworca);
 	cin.ignore(1024, '\n');
 	cout << "Press enter to continue ...";
 	cin.get();
+	system("clear");
 	return 0;
 }
